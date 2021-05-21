@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+    <title>华炎魔方</title>
+    <script type="text/javascript" src="https://www.steedos.com/website/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+    <script type="text/javascript" src="./qrcode.js"></script>
+</head>
+
+<body>
+    <div id="wechat_qrcode" style="padding-left: 36%; padding-top: 10%"></div>
+    <script>
+        // alert("微信二维码登录")
+        // var codeFigure = new AraleQRCode({
+        //     "render": "svg",
+        //     "text": 'https://github.com/soldair/node-qrcode',
+        //     "size": 150
+        // });
+        // var share_tools = document.querySelector('#wechat_qrcode');
+        // share_tools.appendChild(codeFigure);
+        var obj = new WxLogin({
+            id: "wechat_qrcode",
+            appid: "wxe130bd795323d524",
+            scope: "snsapi_userinfo",
+            redirect_uri: "https://baidu.com/auth/callback",
+            state: "",
+            style: "",
+            href: ""
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+extend: space_users
+fields:
+  wechat_id:
+    label: 微信账号
+    type: text
+    hidden: false
