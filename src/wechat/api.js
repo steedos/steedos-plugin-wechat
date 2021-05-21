@@ -11,10 +11,35 @@ let objectql = require('@steedos/objectql');
 const auth = require("@steedos/auth");
 const steedosConfig = objectql.getSteedosConfig();
 let qywx_api = require('./router.js');
+const OAuth = require('wechat-oauth');
 
 router.use("/wechat", async function (req, res, next) {
     await next();
 });
+
+// 使用网页应用的 appid 和 secret 去初始化 wechat-oauth 的方法
+const wxPcClient = new OAuth(WX_APP_ID, WX_APP_SECRET);
+router.get('/api/wechat/sso/callback', (req, res) => {
+  // 这里接收前端的 redirect_url 传递的 code 
+  const { code } = req.query 
+  wxPcClient.getAccessToken(code, (err, result) => {
+    if (!err) {
+      const accessToken = result.data.access_token
+      const openId = result.data.openid
+      const unionId = result.data.unionid
+      // 这里生成一个 sessionid
+      const sessionId = generateSessionId()
+      wxPcClient.getUser(openId, (err, result) => {
+        // 这里获取到了用户的信息, 可以存储在数据库中
+        const {nickname, sex, city, province, country, headimgurl} = result
+        // 设置一个 cookie 用于标记这个用户
+        res.cookie('wxsessionid', sessionId, { maxAge: 84600000, httpOnly: true })
+        // 登录成功后做一个跳转, 也可以不做
+        res.redirect('https://xxx.com/yyy.html')
+      })
+    }
+  })
+})
 
 // 工作台首页
 router.get("/api/wechat/mainpage", async function (req, res, next) {
