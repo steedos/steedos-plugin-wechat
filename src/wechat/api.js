@@ -18,6 +18,8 @@ router.use("/wechat", async function (req, res, next) {
 });
 
 // 使用网页应用的 appid 和 secret 去初始化 wechat-oauth 的方法
+let WX_APP_ID = steedosConfig.wechat.app_id;
+let WX_APP_SECRET = steedosConfig.wechat.app_secret;
 const wxPcClient = new OAuth(WX_APP_ID, WX_APP_SECRET);
 router.get('/api/wechat/sso/callback', (req, res) => {
   // 这里接收前端的 redirect_url 传递的 code 

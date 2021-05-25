@@ -7,6 +7,9 @@ datasources:
 public:
   cfs:
     store: ${STEEDOS_CFS_STORE}
+wechat:
+  app_id: ${WECHAT_APP_ID}
+  app_secret: ${WECHAT_APP_SECRET}
 tenant:
   _id: ${STEEDOS_TENANT_ID}
   name: 华炎魔方
